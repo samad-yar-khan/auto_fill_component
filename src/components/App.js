@@ -72,10 +72,11 @@ class App extends React.Component {
     componentDidMount(){
       let dictionary = JSON.parse(localStorage.getItem('auto-fill-dictionary'));
       
-      let dictTemp = this.state.dictionary;
-      dictTemp.root = dictionary.root;
+      
       //taking dictonary from cache
       if(dictionary!==null && dictionary!==undefined){
+        let dictTemp = this.state.dictionary;
+      dictTemp.root = dictionary.root;
         this.setState({
           dictionary:dictTemp
         })
