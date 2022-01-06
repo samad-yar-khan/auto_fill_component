@@ -64,6 +64,9 @@ class App extends React.Component {
       let text = e.target.value;
       //text -> filter
       if(text === ""){
+        this.setState({
+          suggestions:[]
+        });
         return;
       }
       try{
