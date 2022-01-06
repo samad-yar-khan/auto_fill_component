@@ -3,6 +3,7 @@ import AutoFill from './AutoFill.js';
 import axios from 'axios'; 
 import '../CSS/App.css'
 
+// Trie can be used for caching to avoid API calls
 function Node(value){
   this.value = value
   this.isEndOfWord = false // false by default, a green node means this flag is true
@@ -15,19 +16,20 @@ class Trie{
     this.root = new Node(null)
   }
 
-  insert(word){
+  insert(word,suggestions){
     let current = this.root
     // iterate through all the characters of word
     for(let character of word){
          // if node doesn't have the current character as child, insert it
          if(current.children[character] === undefined){
-             current.children[character] = new Node(character)
+             current.children[character] = new Node(character);
          }
         // move down, to insert next character
         current = current.children[character]  
     }
     // mark the last inserted character as end of the word
-    current.isEndOfWord = true
+    current.suggestions = suggestions;
+    current.isEndOfWord = true;
   }
 
   search(word){
@@ -36,13 +38,18 @@ class Trie{
     for(let character of word){
          if(current.children[character] === undefined){
              // could not find this character in sequence, return false
-             return false
+             return {
+              foundWord:false
+             }
          }
         // move down, to match next character
         current = current.children[character]  
     }
      // found all characters, return true if last character is end of a word
-    return current.isEndOfWord
+    return {
+      foundWord : current.isEndOfWord,
+      suggestions :current.suggestions
+    }
   }
 }
 
@@ -54,22 +61,39 @@ class App extends React.Component {
       this.state = {
         seachText : "",
         suggestions : [],
-        dictionary : Trie
+        dictionary : new Trie()
       }
     }
 
-     handleChange= async (e)=>{
+    handleChange= async (e)=>{
+
 
 
       let text = e.target.value;
       //text -> filter
       if(text === ""){
         this.setState({
+          seachText:text,
           suggestions:[]
         });
         return;
       }
+
+      //check if we alrewayd have results for the word
+
+      let searchResult = this.state.dictionary.search(text);
+
+      if(searchResult.foundWord){
+        console.log("found in dict!");
+        this.setState({
+          seachText:text,
+          suggestions:searchResult.suggestions
+        });
+        return;
+      }
+
       try{
+      
         let data = await axios(
           {
             method:'get',
@@ -77,10 +101,13 @@ class App extends React.Component {
           }
         );
     
-        console.log(data.data);
+     
 
         let suggestions = data.data.map((element) => element.word);
+        console.log("called Api");
+        this.state.dictionary.insert(text,suggestions);
        this.setState({
+        seachText :text,
          suggestions : suggestions
        });
         // this.setState({
@@ -93,6 +120,13 @@ class App extends React.Component {
     
     }
 
+    selectWord = (word)=>{
+      this.setState(
+        {
+          seachText : word
+        });
+    }
+
     render(){
 
       return (
@@ -102,6 +136,7 @@ class App extends React.Component {
               textValue={this.state.seachText}
               handleChange={this.handleChange}
               suggestions={this.state.suggestions}
+              selectWord= {this.selectWord}
             />
           </div>
         </div>
