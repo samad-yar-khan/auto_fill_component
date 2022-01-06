@@ -8,16 +8,19 @@ function Node(value){
   this.value = value
   this.isEndOfWord = false // false by default, a green node means this flag is true
   this.children = {} // children are stored as Map, where key is the letter and value is a TrieNode for that letter 
-  this.suggestions = []
+  this.suggestions = {}
 }
 
 class Trie{
   constructor(){
     this.root = new Node(null)
   }
+  // constructor (newTrie){
+  //   this.root = new Node(newTrie.root);
+  // }
 
   insert(word,suggestions){
-    let current = this.root
+    let current = this.root;
     // iterate through all the characters of word
     for(let character of word){
          // if node doesn't have the current character as child, insert it
@@ -28,7 +31,8 @@ class Trie{
         current = current.children[character]  
     }
     // mark the last inserted character as end of the word
-    current.suggestions = suggestions;
+    // objectcurrent.suggestions = suggestions;
+    Object.assign(current.suggestions,suggestions);
     current.isEndOfWord = true;
   }
 
@@ -48,7 +52,7 @@ class Trie{
      // found all characters, return true if last character is end of a word
     return {
       foundWord : current.isEndOfWord,
-      suggestions :current.suggestions
+      suggestions : Object.values(current.suggestions)
     }
   }
 }
@@ -63,6 +67,28 @@ class App extends React.Component {
         suggestions : [],
         dictionary : new Trie()
       }
+    }
+
+    componentDidMount(){
+      let dictionary = JSON.parse(localStorage.getItem('auto-fill-dictionary'));
+      
+      let dictTemp = this.state.dictionary;
+      dictTemp.root = dictionary.root;
+      //taking dictonary from cache
+      if(dictionary!==null && dictionary!==undefined){
+        this.setState({
+          dictionary:dictTemp
+        })
+      }
+
+      //we reset the cache to new value every 30 secs
+      this.setEventCache = setInterval(()=>{
+        localStorage.setItem('auto-fill-dictionary',JSON.stringify(this.state.dictionary));
+      }, 30000);
+    }
+
+    componentWillUnmount(){
+      clearInterval(this.setEventCache);
     }
 
     handleChange= async (e)=>{
@@ -84,7 +110,7 @@ class App extends React.Component {
       let searchResult = this.state.dictionary.search(text);
 
       if(searchResult.foundWord){
-        console.log("found in dict!");
+        // console.log("found in dict!");
         this.setState({
           seachText:text,
           suggestions:searchResult.suggestions
@@ -104,7 +130,7 @@ class App extends React.Component {
      
 
         let suggestions = data.data.map((element) => element.word);
-        console.log("called Api");
+        // console.log("called Api");
         this.state.dictionary.insert(text,suggestions);
        this.setState({
         seachText :text,
