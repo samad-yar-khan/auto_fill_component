@@ -90,3 +90,5 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 2. JavaScript
 3. [ReactJS](https://reactjs.org/)
 
+## Feel free to test the hosted  version of the component and dont forget to star the repo if it proves helpful !
+
