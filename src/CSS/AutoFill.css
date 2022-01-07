@@ -1,6 +1,6 @@
 .search-container input {
     height: 43px;
-    width: 600px;
+    width: 400px;
     border-radius: 5px;
     border: none;
     font-size: 16px;
@@ -15,10 +15,11 @@
     position: relative;
     background: #fff;
     color : rgb(172, 172, 172);
-    width: 600px;
+    width: fit-content;
     box-sizing: border-box;
     border: 1px solid #e1e1e1;
     padding: 4px;
+    margin: 5px;
     top: 2px;
     font-size:16px;
     border-radius: 5px;
@@ -31,9 +32,10 @@
   
   .search-results{
     display: flex;
-    flex-direction: column;
+    width: 400px;
+    flex-wrap: wrap;
     height: fit-content;
-    justify-content: space-between;
+    
   }
   .search-result .movie-info button {
     margin: 20px 10px;

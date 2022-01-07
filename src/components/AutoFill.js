@@ -8,7 +8,7 @@ function AutoFill(props) {
         <div className='search-container'>
             <input 
               className='inputBox' 
-              value={props.textValue}
+              // value={props.textValue}
               onChange={(event)=>{props.handleChange(event);}}
             />
         </div>

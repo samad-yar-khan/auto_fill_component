@@ -97,6 +97,14 @@ class App extends React.Component {
 
 
       let text = e.target.value;
+      let n = text.indexOf(" ");
+      console.log(n);
+      if(n!==-1){
+        text = text.split(" ").splice(-1);
+      }
+   
+     
+
       //text -> filter
       if(text === ""){
         this.setState({
