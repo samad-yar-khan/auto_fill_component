@@ -1,70 +1,92 @@
-# Getting Started with Create React App
+<h1 align="center">
+    AutoFill Suggestions
+</h1>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<blockquote align="center">
+  <b><i>
+        This is React Componet which can be used in any React Application to provide the user with auto-fill/auto-complete keywords while writing content. 
+  </i></b>
+</blockquote>
 
-## Available Scripts
+<br/>
 
-In the project directory, you can run:
+## Installation
 
-### `npm start`
+To run the Web Application on your local system download Node.js - https://nodejs.org/en/download/ . This will give you access to the node package manager which is essential to run the project .
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 📌 Setting up project using `npm` :
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+1. Open this cloned folder in the text editor of your choice.
+2. If you want to use the project using `npm` then that comes alongside when you download and install node js.
 
-### `npm test`
+### 🚩 Running in Development mode :
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. Open the terminal and type in `npm install`, to install all the dependencies.
+2. Run: `npm start`
+3. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+4. The page will reload if you make edits.
 
-### `npm run build`
+### 🚩 Testing changes :
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. After doing changes type `npm test`. This launches the test runner in the interactive watch mode.
+2. See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 🚩 Building project :
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. Run the command `npm run build`
+2. Builds the app for production to the `build` folder.
+3. It correctly bundles React in production mode and optimizes the build for the best performance.
+4. The build is minified and the filenames include the hashes.
+   Your app is ready to be deployed!
+5. See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+## Usage
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+After typing `npm start` in the terminal , the project can be used opened on [http://localhost:3000](http://localhost:3000).
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 1)App   
+The App Component is the parent compoent of AutoFill componet where the user can type input.The App component has essential functions and classes which are needed for the AutoFill Component to work effecintly.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### 2)AutoFill 
+The Auto fill component is a stateless contolled component which takes props from its parent , which report its channges to the parents and fetch results accordingly.
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### 3)Suggestion
+The Autofill will display an array of suggestion for each incomplete word and these arey dispalyed in the form of pills.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+## 💻 Working/WorkFlow
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### 1)Input
+The AutoFill component has an event handler which calls the handleChange function whenever a change is done to the input.
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### 2)handleChange 
+The handle change function will make an api call for the incomplete word of the input and fetch suggestions from the server.
 
-### Making a Progressive Web App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### 3)Caching (Optimisation using Trie)
+In an effort to minimise redundant API Calls we have used a Trie for which stores the suggestions for different prefexes. The Trie is stored in our Cache(local storage of user) and is reset every 30 seconds. The system is checked for pre-existing Trie in Cache whenever the component is rendered.  
 
-### Advanced Configuration
+## Contributing
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.Please make sure to update tests as appropriate.
+### 📌 Prerequisites
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### 💻 1. System requirement :
 
-### Deployment
+1. Any system with basic configuration.
+2. Operating System : Any (Windows / Linux / Mac).
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### 💿 2. Software requirement :
 
-### `npm run build` fails to minify
+1. Updated browser
+2. Node.js installed (If not download it [here](https://nodejs.org/en/download/)).
+3. Any text editor of your choice.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### ⚡ 3. Skill set :
+
+1. Knowledge of git & github.
+2. JavaScript
+3. [ReactJS](https://reactjs.org/)
+
